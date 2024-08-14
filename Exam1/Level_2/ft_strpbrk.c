@@ -1,56 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strpbrk.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/10 10:42:36 by rjaada            #+#    #+#             */
-/*   Updated: 2024/08/14 15:48:55 by rjaada           ###   ########.fr       */
+/*   Created: 2024/08/11 15:40:08 by rjaada            #+#    #+#             */
+/*   Updated: 2024/08/11 18:04:30 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
-char	*ft_strdup(char *src)
+char	*ft_strpbrk(const char *s1, const char *s2)
 {
-	int		i;
-	int		j;
-	char	*dup;
+	int	i;
 
-	i = 0;
-	j = 0;
-	while (src[j] != '\0')
+	if (!s1 || !s2)
+		return (0);
+	while (*s1)
 	{
-		j++;
+		i = 0;
+		while (s2[i])
+		{
+			if (*s1 == s2[i])
+				return ((char *)s1);
+			i++;
+		}
+		s1++;
 	}
-	dup = malloc((j * sizeof(*src)) + 1);
-	if (dup == NULL)
-		return (NULL);
-	while (src[i] != '\0')
-	{
-		dup[i] = src[i];
-		i++;
-	}
-	dup[i] = '\0';
-	return (dup);
+	return (NULL);
 }
 
 int	main(int argc, char *argv[])
 {
-	char	*dup;
+	char	*mine;
+	char	*there;
 
-	char * or ;
-	if (argc != 2)
+	if (argc != 3)
 	{
 		printf("\n");
 		return (1);
 	}
-	dup = ft_strdup(argv[1]);
-	or = strdup(argv[1]);
-	printf("%s\n", dup);
-	printf("%s\n", or);
+	mine = ft_strpbrk(argv[1], argv[2]);
+	there = strpbrk(argv[1], argv[2]);
+	printf("%s\n", mine);
+	printf("%s\n", there);
 	return (0);
 }

@@ -1,56 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   inter.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/10 10:42:36 by rjaada            #+#    #+#             */
-/*   Updated: 2024/08/14 15:48:55 by rjaada           ###   ########.fr       */
+/*   Created: 2024/08/14 12:54:30 by rjaada            #+#    #+#             */
+/*   Updated: 2024/08/14 15:48:07 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <unistd.h>
 
-char	*ft_strdup(char *src)
+void	inter(char *s1, char *s2)
 {
-	int		i;
-	int		j;
-	char	*dup;
+	int	i;
+	int	j;
+	int	seen[256] = {0};
 
 	i = 0;
-	j = 0;
-	while (src[j] != '\0')
+	while (s1[i] != '\0')
 	{
-		j++;
-	}
-	dup = malloc((j * sizeof(*src)) + 1);
-	if (dup == NULL)
-		return (NULL);
-	while (src[i] != '\0')
-	{
-		dup[i] = src[i];
+		if (seen[(unsigned char)s1[i]] == 0)
+		{
+			j = 0;
+			while (s2[j] != '\0')
+			{
+				if (s1[i] == s2[j])
+				{
+					write(1, &s1[i], 1);
+					seen[(unsigned char)s1[i]] = 1;
+					break ;
+				}
+				j++;
+			}
+		}
 		i++;
 	}
-	dup[i] = '\0';
-	return (dup);
 }
 
 int	main(int argc, char *argv[])
 {
-	char	*dup;
-
-	char * or ;
-	if (argc != 2)
+	if (argc != 3)
 	{
-		printf("\n");
+		write(1, "\n", 1);
 		return (1);
 	}
-	dup = ft_strdup(argv[1]);
-	or = strdup(argv[1]);
-	printf("%s\n", dup);
-	printf("%s\n", or);
+	inter(argv[1], argv[2]);
+	write(1, "\n", 1);
 	return (0);
 }

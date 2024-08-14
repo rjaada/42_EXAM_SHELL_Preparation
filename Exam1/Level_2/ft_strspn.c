@@ -1,56 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strspn.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/10 10:42:36 by rjaada            #+#    #+#             */
-/*   Updated: 2024/08/14 15:48:55 by rjaada           ###   ########.fr       */
+/*   Created: 2024/08/12 14:01:25 by rjaada            #+#    #+#             */
+/*   Updated: 2024/08/14 12:46:24 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
-char	*ft_strdup(char *src)
+size_t	ft_strspn(const char *s, const char *accept)
 {
-	int		i;
-	int		j;
-	char	*dup;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
-	j = 0;
-	while (src[j] != '\0')
+	while (s[i] != '\0')
 	{
-		j++;
-	}
-	dup = malloc((j * sizeof(*src)) + 1);
-	if (dup == NULL)
-		return (NULL);
-	while (src[i] != '\0')
-	{
-		dup[i] = src[i];
+		j = 0;
+		while (accept[j] != '\0')
+		{
+			if (s[i] == accept[j])
+				break ;
+			j++;
+		}
+		if (accept[j] == '\0')
+			return (i);
 		i++;
 	}
-	dup[i] = '\0';
-	return (dup);
+	return (i);
 }
 
 int	main(int argc, char *argv[])
 {
-	char	*dup;
-
-	char * or ;
-	if (argc != 2)
+	if (argc != 3)
 	{
 		printf("\n");
 		return (1);
 	}
-	dup = ft_strdup(argv[1]);
-	or = strdup(argv[1]);
-	printf("%s\n", dup);
-	printf("%s\n", or);
+	printf("%ld\n", ft_strspn(argv[1], argv[2]));
+	printf("%ld\n", strspn(argv[1], argv[2]));
 	return (0);
 }

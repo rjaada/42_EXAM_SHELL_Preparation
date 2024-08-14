@@ -1,56 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strrev.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rjaada <rjaada@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/10 10:42:36 by rjaada            #+#    #+#             */
-/*   Updated: 2024/08/14 15:48:55 by rjaada           ###   ########.fr       */
+/*   Created: 2024/08/11 18:07:29 by rjaada            #+#    #+#             */
+/*   Updated: 2024/08/12 13:59:02 by rjaada           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
-char	*ft_strdup(char *src)
+char	*ft_strrev(char *str)
 {
 	int		i;
-	int		j;
-	char	*dup;
+	int		length;
+	char	temp[100];
 
-	i = 0;
-	j = 0;
-	while (src[j] != '\0')
+	i = -1;
+	length = 0;
+	while (str[length])
+		length++;
+	while (i++ < length / 2)
 	{
-		j++;
+		*temp = str[i];
+		str[i] = str[length - 1 - i];
+		str[length - 1 - i] = *temp;
 	}
-	dup = malloc((j * sizeof(*src)) + 1);
-	if (dup == NULL)
-		return (NULL);
-	while (src[i] != '\0')
-	{
-		dup[i] = src[i];
-		i++;
-	}
-	dup[i] = '\0';
-	return (dup);
+	return (str);
 }
 
 int	main(int argc, char *argv[])
 {
-	char	*dup;
-
-	char * or ;
 	if (argc != 2)
 	{
 		printf("\n");
 		return (1);
 	}
-	dup = ft_strdup(argv[1]);
-	or = strdup(argv[1]);
-	printf("%s\n", dup);
-	printf("%s\n", or);
+	printf("%s\n", ft_strrev(argv[1]));
 	return (0);
 }
